@@ -5,17 +5,24 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using CoreAndFood2.Data.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CoreAndFood2.Controllers
 {
+   
     public class CategoryController : Controller
     {
+
         CategoryRepository categoryRepository = new CategoryRepository();
+
+
         public IActionResult Index()
         {
          
             return View(categoryRepository.TList());
         }
+
+
         [HttpGet]
         public IActionResult CategoryAdd()
         {

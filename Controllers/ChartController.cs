@@ -1,5 +1,6 @@
 ﻿using CoreAndFood2.Data;
 using CoreAndFood2.Data.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -9,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace CoreAndFood2.Controllers
 {
+    
     public class ChartController : Controller
     {
         public IActionResult Index()
@@ -70,6 +72,40 @@ namespace CoreAndFood2.Controllers
             return cs;
 
             }
+
+        public IActionResult Statistics()
+
+        {
+            Context c = new Context();
+
+            var deger1 = c.Foods.Count();
+            ViewBag.d1 = deger1;
+
+            var deger2 = c.Categories.Count();
+            ViewBag.d2 = deger2;
+
+            var foid = c.Categories.Where(x => x.CategoryName == "Fruit").Select(y => y.CategoryID).FirstOrDefault();
+            ViewBag.d = foid;
+            var deger3 = c.Foods.Where(x=>x.CategoryID== foid).Count();
+            ViewBag.d3 = deger3;
+
+            var deger4 = c.Foods.Where(x => x.CategoryID ==c.Categories.Where(z => z.CategoryName == "Vegetables").Select(y => y.CategoryID).FirstOrDefault()).Count();
+            ViewBag.d4 = deger4;
+
+            var deger5 = c.Foods.Sum(x => x.Stock);
+            ViewBag.d5 = deger5;
+
+            var deger6 = c.Foods.Where(x => x.CategoryID == c.Categories.Where(y => y.CategoryName == 
+            "Legumes").Select(z => z.CategoryID).FirstOrDefault()).Count();
+            ViewBag.d6 = deger6;
+
+            var deger7 = c.Foods.OrderByDescending(x => x.Stock).Select(y => y.Name).FirstOrDefault();
+            ViewBag.d7 = deger7;
+
+            return View();
+        
+        }
     }
+
 }
     

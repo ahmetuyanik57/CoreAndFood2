@@ -1,5 +1,6 @@
 ﻿using CoreAndFood2.Data.Models;
 using CoreAndFood2.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -11,9 +12,11 @@ using X.PagedList;
 
 namespace CoreAndFood2.Controllers
 {
+    [AllowAnonymous]
     
     public class FoodController : Controller
     {
+        
         FoodRepository foodRepository = new FoodRepository();
         Context c = new Context();
         public IActionResult Index(int page = 1)
