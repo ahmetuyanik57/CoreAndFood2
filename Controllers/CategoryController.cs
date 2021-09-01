@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace CoreAndFood2.Controllers
 {
-   
+    [AllowAnonymous]
     public class CategoryController : Controller
     {
 
